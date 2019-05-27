@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.marcecuevas.hotelsapp.model.Error
+import com.marcecuevas.hotelsapp.data.model.Error
 
 abstract class GenericFragment: Fragment(){
 

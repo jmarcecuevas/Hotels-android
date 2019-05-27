@@ -1,6 +1,5 @@
 package com.marcecuevas.hotelsapp.view.activity
 
-import android.os.Bundle
 import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.view.fragment.MainFragment
 

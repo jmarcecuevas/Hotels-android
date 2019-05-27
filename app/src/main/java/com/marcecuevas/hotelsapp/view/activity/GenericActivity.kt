@@ -3,11 +3,10 @@ package com.marcecuevas.hotelsapp.view.activity
 import android.app.AlertDialog
 import android.os.Bundle
 import com.marcecuevas.hotelsapp.R
-import com.marcecuevas.hotelsapp.model.Error
+import com.marcecuevas.hotelsapp.data.model.Error
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.marcecuevas.hotelsapp.view.fragment.GenericFragment
-import com.marcecuevas.hotelsapp.view.fragment.MainFragment
 
 abstract class GenericActivity: AppCompatActivity(){
 
