@@ -1,21 +1,21 @@
 package com.marcecuevas.hotelsapp.data.repository
 
 import androidx.lifecycle.LiveData
-import com.marcecuevas.hotelsapp.data.dao.HotelApiDAO
-import com.marcecuevas.hotelsapp.data.dao.HotelLocalDAO
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
-import com.marcecuevas.hotelsapp.data.model.DTO.HotelDetailDTO
+import com.marcecuevas.hotelsapp.data.network.HotelNetworkDataSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class HotelRepositoryImpl(val apiDAO: HotelApiDAO, val localDAO: HotelLocalDAO): HotelRepository {
 
+class HotelRepositoryImpl(private val hotelNetworkDataSource: HotelNetworkDataSource): HotelRepository {
 
-    override fun findAll(): LiveData<List<HotelDTO>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    init {
+
     }
 
-    override fun getHotelDetail(id: String): LiveData<HotelDetailDTO> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun getHotels(): LiveData<HotelDTO> {
 
+    }
 
 }
+

@@ -2,9 +2,16 @@ package com.marcecuevas.hotelsapp.data.model.DTO
 
 import com.google.gson.annotations.SerializedName
 
-class HotelDTO: GenericDTO<HotelItemDTO>()
+data class HotelDTO(
+    @SerializedName("meta_data") val metadata: MetadataDTO,
+    val items: List<HotelItemDTO>): GenericDTO
 
 
+data class MetadataDTO(
+    val message: String,
+    val code: String,
+    val uow: String
+)
 
 data class HotelItemDTO(
     val id: String,
