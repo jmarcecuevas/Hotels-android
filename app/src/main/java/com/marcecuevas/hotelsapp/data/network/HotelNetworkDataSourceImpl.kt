@@ -1,39 +1,28 @@
 package com.marcecuevas.hotelsapp.data.network
 
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
-import com.marcecuevas.hotelsapp.data.model.MResult
+import com.marcecuevas.hotelsapp.data.model.DTO.HotelDetailDTO
+import com.marcecuevas.hotelsapp.data.model.Result
 import java.io.IOException
 
-class HotelNetworkDataSourceImpl(private val hotelREST: HotelREST): HotelNetworkDataSource {
+class HotelNetworkDataSourceImpl(private val hotelREST: HotelREST): HotelNetworkDataSource{
 
-    override suspend fun getHotels(): MResult<HotelDTO> {
-        val response = hotelREST.getHotels().await()
-        if(response.isSuccessful) {
+    override suspend fun getHotelDetail(id: String): Result<HotelDetailDTO> {
+        val response = hotelREST.getHotelDetail(id).await()
+        if(response.isSuccessful){
             response.body()?.let {
-                return MResult.Success(it)
+                return Result.Success(it)
             }
-        return MResult.Error("An error ocurred.")
+        }
+        return Result.Error(IOException("Error ocurred"))
     }
 
-
-
-
-
-//    private val hotelsLiveData = MutableLiveData<HotelDTO>()
-//
-//    override val hotels: LiveData<HotelDTO>
-//        get() = hotelsLiveData
-
-
-//    override suspend fun getHotels() {
-//        try {
-//            val fetchedHotels = hotelREST
-//                .getHotels()
-//                .await()
-//            hotelsLiveData.postValue(fetchedHotels)
-//        }
-//        catch (e: NoConnectivityException){
-//            Log.e("Connectivity","No internet connection.",e)
-//        }
-//    }
+    override suspend fun getHotels(): Result<HotelDTO> {
+        val response = hotelREST.getHotels().await()
+        if (response.isSuccessful)
+            response.body()?.let {
+                return Result.Success(it)
+            }
+        return Result.Error(IOException("Error ocurred"))
+    }
 }

@@ -20,8 +20,8 @@ class HotelApplication : Application(),KodeinAware {
         import(androidXModule(this@HotelApplication))
 
         bind() from singleton { HotelREST(instance()) }
-        bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance())}
         bind<HotelNetworkDataSource>() with singleton { HotelNetworkDataSourceImpl(instance()) }
+        bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance())}
         bind<HotelRepository>() with singleton { HotelRepositoryImpl(instance()) }
         bind() from provider { HotelViewModelFactory(instance()) }
     }

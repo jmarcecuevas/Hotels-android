@@ -1,6 +1,6 @@
 package com.marcecuevas.hotelsapp.utils
 
-import com.marcecuevas.hotelsapp.data.model.MResult
+import com.marcecuevas.hotelsapp.data.model.Result
 import kotlinx.coroutines.*
 import java.io.IOException
 
@@ -12,10 +12,10 @@ fun<T> lazyDeferred(block: suspend CoroutineScope.() -> T): Lazy<Deferred<T>> {
     }
 }
 
-suspend fun <T : Any> safeApiCall(call: suspend () -> MResult<T>, errorMessage: String): MResult<T> = try {
+suspend fun <T : Any> safeApiCall(call: suspend () -> Result<T>, errorMessage: String): Result<T> = try {
     call.invoke()
 } catch (e: Exception) {
-    MResult.Error(IOException(errorMessage, e))
+    Result.Error(IOException(errorMessage, e))
 }
 
 val <T> T.exhaustive: T get() = this

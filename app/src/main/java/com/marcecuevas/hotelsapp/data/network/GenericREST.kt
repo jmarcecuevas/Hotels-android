@@ -1,24 +1,12 @@
 package com.marcecuevas.hotelsapp.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
-import com.marcecuevas.hotelsapp.data.model.DTO.HotelDetailDTO
-import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
 
-interface HotelREST {
-
-    @GET(value = "hotels")
-    fun getHotels(): Deferred<Response<HotelDTO>>
-
-    @GET(value = "hotels/{id}")
-    fun getHotelDetail(@Path(value = "id") id: String): Deferred<Response<HotelDetailDTO>>
+interface GenericREST {
 
     companion object {
         operator fun invoke(
