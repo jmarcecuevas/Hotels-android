@@ -5,6 +5,7 @@ import com.marcecuevas.hotelsapp.data.repository.HotelRepository
 import com.marcecuevas.hotelsapp.data.repository.HotelRepositoryImpl
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.marcecuevas.hotelsapp.data.network.*
+import com.marcecuevas.hotelsapp.utils.Font
 import com.marcecuevas.hotelsapp.viewModel.HotelViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -13,6 +14,8 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils
 
 class HotelApplication : Application(),KodeinAware {
 
@@ -29,5 +32,13 @@ class HotelApplication : Application(),KodeinAware {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+
+        Font.instance.setFamilyName(applicationContext,"Gotham")
+
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+            .setDefaultFontPath(Font.instance.defaultPath())
+            .setFontAttrId(com.marcecuevas.hotelsapp.R.attr.fontPath)
+            .build()
+        )
     }
 }

@@ -14,10 +14,10 @@ import com.marcecuevas.hotelsapp.data.model.Result
 
 class HotelViewModel(val repository: HotelRepository): ViewModel(){
 
-    private val _hotels = MutableLiveData<HotelDetailDTO>()
+    private val _hotels = MutableLiveData<HotelDTO>()
     private val _error = MutableLiveData<String>()
 
-    val hotels: LiveData<HotelDetailDTO> get() = _hotels
+    val hotels: LiveData<HotelDTO> get() = _hotels
     val error: MutableLiveData<String> get() = _error
 
     private var job: Job? = null
@@ -28,7 +28,7 @@ class HotelViewModel(val repository: HotelRepository): ViewModel(){
 
     private fun initGetHotelsCall(){
         job = GlobalScope.launch {
-            val value = repository.getHotelDetail("364650")
+            val value = repository.getHotels()
             when(value){
                 is Result.Success -> _hotels.postValue(value.data)
                 is Result.Error -> _error.postValue(value.message.message)
