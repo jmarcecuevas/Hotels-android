@@ -7,4 +7,6 @@
     <string name="findLabelHeader">ENCUENTRA</string>
     <string name="todayLabelHeader">HOY MISMO</string>
     <string name="hotelLabelHeader">TU HOTEL</string>
+    <string name="seeLess">Ver menos</string>
+    <string name="seeMore">Ver más</string>
 </resources>

@@ -4,10 +4,20 @@
             android:id="@+id/navigation" app:startDestination="@id/homeFragment">
 
     <fragment android:id="@+id/homeFragment" android:name="com.marcecuevas.hotelsapp.view.fragment.HotelsFragment"
-              android:label="HomeFragment"/>
+              android:label="Hoteles">
+        <action android:id="@+id/hotel_detail_fragment"
+                app:destination="@+id/hotelDetailFragment" app:enterAnim="@anim/pull_in_right"
+                app:exitAnim="@anim/push_out_left" app:popEnterAnim="@anim/pull_in_left"
+                app:popExitAnim="@anim/push_out_right"/>
+    </fragment>
     <fragment android:id="@+id/favouriteFragment"
               android:name="com.marcecuevas.hotelsapp.view.fragment.FavouriteFragment"
-              android:label="FavouriteFragment"/>
+              android:label="Favoritos"/>
     <fragment android:id="@+id/settingsFragment" android:name="com.marcecuevas.hotelsapp.view.fragment.SettingsFragment"
-              android:label="SettingsFragment"/>
+              android:label="Ajustes"/>
+    <fragment android:id="@+id/hotelDetailFragment"
+              android:name="com.marcecuevas.hotelsapp.view.fragment.HotelDetailFragment"
+              android:label="HotelDetailFragment">
+        <argument android:name="hotel_id" app:argType="string" app:nullable="true"/>
+    </fragment>
 </navigation>

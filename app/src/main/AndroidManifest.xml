@@ -22,10 +22,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:name=".view.activity.GenericActivity">
-        </activity>
-
     </application>
 
 </manifest>

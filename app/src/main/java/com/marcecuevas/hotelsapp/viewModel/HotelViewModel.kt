@@ -17,10 +17,14 @@ class HotelViewModel(val repository: HotelRepository): ViewModel(){
     private val _hotels = MutableLiveData<HotelDTO>()
     private val _error = MutableLiveData<String>()
 
+    private val _hotelDetail = MutableLiveData<HotelDetailDTO>()
+
     val hotels: LiveData<HotelDTO> get() = _hotels
+    val hotelDetail: LiveData<HotelDetailDTO> get() = _hotelDetail
     val error: MutableLiveData<String> get() = _error
 
     private var job: Job? = null
+    private var job2: Job? = null
 
     init {
         this.initGetHotelsCall()
@@ -36,9 +40,20 @@ class HotelViewModel(val repository: HotelRepository): ViewModel(){
         }
     }
 
+    fun getHotelDetail(id: String){
+        job2 = GlobalScope.launch {
+            val value = repository.getHotelDetail(id)
+            when(value){
+                is Result.Success -> _hotelDetail.postValue(value.data)
+                is Result.Error -> _error.postValue(value.message.message)
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         job?.cancel()
+        job2?.cancel()
     }
 
 

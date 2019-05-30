@@ -6,6 +6,7 @@ apply plugin: "kotlin-kapt"
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 28
@@ -112,6 +113,9 @@ dependencies {
 
     //AutoviewPager
     implementation 'com.github.santalu:auto-viewpager:1.0.8'
+
+    //Read more TextView
+    compile 'com.borjabravo:readmoretextview:2.1.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

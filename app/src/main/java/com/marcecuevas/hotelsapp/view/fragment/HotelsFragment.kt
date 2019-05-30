@@ -2,6 +2,7 @@ package com.marcecuevas.hotelsapp.view.fragment
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.utils.FontVariable
@@ -21,6 +22,7 @@ class HotelsFragment: GenericFragment(), KodeinAware {
     private val viewModelFactory: HotelViewModelFactory by instance()
 
     private lateinit var viewModel: HotelViewModel
+    private lateinit var adapter: HotelAdapter
 
     override fun layout(): Int = R.layout.fragment_main
 
@@ -30,15 +32,19 @@ class HotelsFragment: GenericFragment(), KodeinAware {
 
         setupViewPager()
 
+        context?.let {
+            adapter = HotelAdapter(it,{
+                navigateToEventDetails(it.id)
+            })
+            hotelsRecyclerView.layoutManager = LinearLayoutManager(context)
+            hotelsRecyclerView.adapter = adapter
+        }
+
         viewModel = ViewModelProviders.of(this,viewModelFactory).
             get(HotelViewModel::class.java)
 
-        hotelsRecyclerView.layoutManager = LinearLayoutManager(context)
-
         viewModel.hotels.observe(this, Observer {
-            hotelsRecyclerView.adapter = context?.let {
-                    it1 -> HotelAdapter(it1,it.items)
-            }
+            adapter.loadItems(it.items)
         })
     }
 
@@ -55,5 +61,10 @@ class HotelsFragment: GenericFragment(), KodeinAware {
             viewPager.adapter = SliderViewPager(it)
             pageIndicator.attachToViewPager(viewPager)
         }
+    }
+
+    private fun navigateToEventDetails(hotelID: String){
+        val directions = HotelsFragmentDirections.hotelDetailFragment(hotelID)
+        findNavController().navigate(directions)
     }
 }

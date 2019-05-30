@@ -8,14 +8,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.marcecuevas.hotelsapp.R
+import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelItemDTO
 import com.marcecuevas.hotelsapp.utils.FontVariable
 import com.marcecuevas.hotelsapp.utils.fontVariable
 import kotlinx.android.synthetic.main.item_hotel.view.*
 import java.lang.StringBuilder
 
-class HotelAdapter(val context: Context, val items: List<HotelItemDTO>): RecyclerView.Adapter<HotelAdapter.HotelViewHolder>() {
+class HotelAdapter(val context: Context, val onClick: (HotelItemDTO) -> Unit): RecyclerView.Adapter<HotelAdapter.HotelViewHolder>() {
 
+    var items: List<HotelItemDTO> = emptyList()
+
+    fun loadItems(newItems: List<HotelItemDTO>){
+        items = newItems
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotelViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_hotel,parent,false)
@@ -24,12 +31,14 @@ class HotelAdapter(val context: Context, val items: List<HotelItemDTO>): Recycle
 
     override fun onBindViewHolder(holder: HotelViewHolder, position: Int) {
         holder.bind(items.get(position))
+        holder.itemView.setOnClickListener{
+            onClick(items.get(position))
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
-
 
     class HotelViewHolder(context: Context, itemView: View): RecyclerView.ViewHolder(itemView){
 
