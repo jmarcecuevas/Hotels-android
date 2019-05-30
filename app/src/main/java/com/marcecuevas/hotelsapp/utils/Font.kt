@@ -41,8 +41,6 @@ class Font {
     }
 }
 
-
-
 enum class FontVariable{
     regular,
     light,
