@@ -11,15 +11,16 @@ import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelItemDTO
 import com.marcecuevas.hotelsapp.utils.FontVariable
+import com.marcecuevas.hotelsapp.utils.bold
 import com.marcecuevas.hotelsapp.utils.fontVariable
 import kotlinx.android.synthetic.main.item_hotel.view.*
 import java.lang.StringBuilder
 
-class HotelAdapter(val context: Context, val onClick: (HotelItemDTO) -> Unit): RecyclerView.Adapter<HotelAdapter.HotelViewHolder>() {
+class HotelAdapter(val context: Context?, val onClick: (HotelItemDTO?) -> Unit): RecyclerView.Adapter<HotelAdapter.HotelViewHolder>() {
 
-    var items: List<HotelItemDTO> = emptyList()
+    var items: List<HotelItemDTO>? = emptyList()
 
-    fun loadItems(newItems: List<HotelItemDTO>){
+    fun loadItems(newItems: List<HotelItemDTO>?){
         items = newItems
         notifyDataSetChanged()
     }
@@ -30,49 +31,52 @@ class HotelAdapter(val context: Context, val onClick: (HotelItemDTO) -> Unit): R
     }
 
     override fun onBindViewHolder(holder: HotelViewHolder, position: Int) {
-        holder.bind(items.get(position))
+        holder.bind(items?.get(position))
         holder.itemView.setOnClickListener{
-            onClick(items.get(position))
+            onClick(items?.get(position))
         }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return items?.size ?:0
     }
 
-    class HotelViewHolder(context: Context, itemView: View): RecyclerView.ViewHolder(itemView){
+    class HotelViewHolder(context: Context?, itemView: View): RecyclerView.ViewHolder(itemView){
 
         init {
             with(itemView){
-                nameTextView.fontVariable(context,FontVariable.bold)
+                nameTextView.bold(context)
                 nameTextView.textSize = 16f
 
                 addressTextView.textSize = 14f
 
                 ratingTextView.textSize = 14f
-
-                priceTextView.textSize = 22f
             }
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(hotel: HotelItemDTO){
+        fun bind(hotel: HotelItemDTO?){
             with(hotel){
-                itemView.starsRatinBar.rating = stars.toFloat()
-                itemView.nameTextView.text = name
-                itemView.addressTextView.text = address
-                itemView.ratingTextView.text = rating.toString()
-                itemView.priceTextView.text = "${price.currency.mask} ${price.best}"
+                this?.stars?.let {
+                    itemView.starsRatinBar.rating = it.toFloat()
+                }
+
+                itemView.nameTextView.text = this?.name
+                itemView.addressTextView.text = this?.address
+                itemView.ratingTextView.text = this?.rating.toString()
+                itemView.priceTextView.text = "${this?.price?.currency?.mask} ${this?.price?.best}"
 
                 Glide.with(itemView)
-                    .load(mainPicture)
+                    .load(this?.mainPicture)
                     .placeholder(R.drawable.empty_state)
                     .error(R.drawable.empty_state)
                     .into(itemView.imageView)
 
                 val amenitiesString = StringBuilder()
-                for(amenity in amenities){
-                    amenitiesString.append("* ${amenity.description}\n")
+                this?.amenities?.let {
+                    for(amenity in it){
+                        amenitiesString.append("* ${amenity.description}\n")
+                    }
                 }
                 itemView.amenitiesTextView.text = amenitiesString.toString()
             }

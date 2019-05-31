@@ -123,6 +123,9 @@ dependencies {
     //Image Viewer
     compile 'com.github.stfalcon:frescoimageviewer:0.5.0'
 
+    implementation 'com.github.tommasoberlose:progress-dialog:1.0.0'
+
+    compile 'com.jsibbold:zoomage:1.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

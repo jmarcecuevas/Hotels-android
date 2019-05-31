@@ -11,43 +11,44 @@ import com.marcecuevas.hotelsapp.utils.FontVariable
 import com.marcecuevas.hotelsapp.utils.fontVariable
 import kotlinx.android.synthetic.main.item_amenity.view.*
 
-class AmenitiesAdapter(val context: Context): RecyclerView.Adapter<AmenitiesAdapter.AmenityViewHolder>() {
+class AmenitiesAdapter(): RecyclerView.Adapter<AmenitiesAdapter.AmenityViewHolder>() {
 
-    var items: List<AmenityDTO> = emptyList()
+    var items: List<AmenityDTO>? = emptyList()
 
-    fun loadItems(newItems: List<AmenityDTO>){
+    fun loadItems(newItems: List<AmenityDTO>?){
         items = newItems
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AmenityViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_amenity,parent,false)
-        return AmenityViewHolder(context,view)
+        return AmenityViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return items.count()
+        return items?.count() ?: 0
     }
 
     override fun onBindViewHolder(holder: AmenityViewHolder, position: Int) {
-        holder.bind(items.get(position))
+        holder.bind(items?.get(position))
     }
 
-    class AmenityViewHolder(context: Context, itemView: View): RecyclerView.ViewHolder(itemView){
+    class AmenityViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
         val mapImages: Map<String,Int> = mapOf<String,Int>(
             "WIFI" to R.drawable.ic_wifi,
             "PISCN" to R.drawable.ic_swimming,
-            "BREAKFAST" to R.drawable.ic_coffee,
+            "BREAKFST" to R.drawable.ic_coffee,
             "PARKING" to R.drawable.ic_parking)
 
-        fun bind(item: AmenityDTO){
+        fun bind(item: AmenityDTO?){
             with(itemView){
-                amenityName.text = item.description
+                item?.let {
+                    amenityName.text = it.description
 
-                mapImages.get(item.id)?.let {
-                    amenityName.setCompoundDrawablesRelativeWithIntrinsicBounds(it,0,0,0)
-                    //amenityName.setCompoundDrawables(resources.getDrawable(R.drawable.ic_place),null,null,null)
+                    mapImages.get(it.id)?.let {
+                        amenityName.setCompoundDrawablesRelativeWithIntrinsicBounds(it,0,0,0)
+                    }
                 }
             }
         }

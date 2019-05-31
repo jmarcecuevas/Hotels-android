@@ -13,8 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-
-
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this,R.id.fragment)
 
-        NavigationUI.setupWithNavController(bottomNav,navController)
+        //Setting the navigation controller to Bottom Nav
+        bottomNav.setupWithNavController(navController)
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
-
+        NavigationUI.setupWithNavController(toolbar,navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.hotelDetailFragment -> hideBottomNavigation()
+                R.id.imageViewerFragment -> hideBottomNavigation()
                 else -> showBottomNavigation()
             }
         }
@@ -44,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         with(bottomNav) {
             if (visibility == View.VISIBLE && alpha == 1f) {
                 visibility = View.GONE
+                shadowToolbar.visibility = View.GONE
             }
         }
     }
@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun showBottomNavigation() {
         with(bottomNav) {
             visibility = View.VISIBLE
+            shadowToolbar.visibility = View.VISIBLE
             val ENTER_DURATION = 1000L
             animate()
                 .alpha(1f)

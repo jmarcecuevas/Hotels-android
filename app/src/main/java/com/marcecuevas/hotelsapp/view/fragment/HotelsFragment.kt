@@ -6,7 +6,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.utils.FontVariable
+import com.marcecuevas.hotelsapp.utils.bold
 import com.marcecuevas.hotelsapp.utils.fontVariable
+import com.marcecuevas.hotelsapp.utils.light
 import com.marcecuevas.hotelsapp.view.adapter.HotelAdapter
 import com.marcecuevas.hotelsapp.view.adapter.SliderViewPager
 import com.marcecuevas.hotelsapp.viewModel.HotelViewModel
@@ -34,7 +36,7 @@ class HotelsFragment: GenericFragment(), KodeinAware {
 
         context?.let {
             adapter = HotelAdapter(it,{
-                navigateToEventDetails(it.id)
+                navigateToEventDetails(it?.id)
             })
             hotelsRecyclerView.layoutManager = LinearLayoutManager(context)
             hotelsRecyclerView.adapter = adapter
@@ -49,11 +51,9 @@ class HotelsFragment: GenericFragment(), KodeinAware {
     }
 
     private fun setupTextViews(){
-        context?.let {
-            firstHeaderTV.fontVariable(it,FontVariable.bold)
-            secondHeaderTV.fontVariable(it,FontVariable.light)
-            thirdHeaderTV.fontVariable(it,FontVariable.bold)
-        }
+        firstHeaderTV.bold(context)
+        secondHeaderTV.light(context)
+        thirdHeaderTV.bold(context)
     }
 
     private fun setupViewPager(){
@@ -63,7 +63,7 @@ class HotelsFragment: GenericFragment(), KodeinAware {
         }
     }
 
-    private fun navigateToEventDetails(hotelID: String){
+    private fun navigateToEventDetails(hotelID: String?){
         val directions = HotelsFragmentDirections.hotelDetailFragment(hotelID)
         findNavController().navigate(directions)
     }

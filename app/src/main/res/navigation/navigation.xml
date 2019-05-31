@@ -19,5 +19,12 @@
               android:name="com.marcecuevas.hotelsapp.view.fragment.HotelDetailFragment"
               android:label="Detalle de hotel">
         <argument android:name="hotel_id" app:argType="string" app:nullable="true"/>
+        <action android:id="@+id/image_viewer_fragment"
+                app:destination="@id/imageViewerFragment"/>
+    </fragment>
+    <fragment android:id="@+id/imageViewerFragment"
+              android:name="com.marcecuevas.hotelsapp.view.fragment.ImageViewerFragment"
+    >
+        <argument android:name="picture_url" app:argType="string" app:nullable="true"/>
     </fragment>
 </navigation>
