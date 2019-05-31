@@ -7,13 +7,13 @@
 
     </item>
 
-    <item android:id="@+id/favouriteFragment"
+    <item android:id="@+id/viewedFragment"
           android:title="@string/history"
           android:icon="@drawable/ic_history">
 
     </item>
 
-    <item android:id="@+id/settingsFragment"
+    <item android:id="@+id/mapFragment"
           android:title="@string/map"
           android:icon="@drawable/ic_map">
     </item>

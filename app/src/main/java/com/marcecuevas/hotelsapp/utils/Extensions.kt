@@ -6,8 +6,8 @@ import android.widget.TextView
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils
 
 fun TextView.fontVariable(context: Context?, variable: FontVariable){
-    context.let {
-        CalligraphyUtils.applyFontToTextView(context,this,Font.instance.pathForVariable(variable))
+    context?.let {
+        CalligraphyUtils.applyFontToTextView(it,this,Font.instance.pathForVariable(variable))
     }
 }
 

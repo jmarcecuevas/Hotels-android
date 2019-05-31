@@ -1,5 +1,7 @@
 package com.marcecuevas.hotelsapp.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +12,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.marcecuevas.hotelsapp.data.model.Result
+import com.marcecuevas.hotelsapp.data.model.entity.HotelEntity
+import kotlinx.coroutines.Dispatchers
 
 
-class HotelViewModel(val repository: HotelRepository): ViewModel(){
+class HotelViewModel(val repository: HotelRepository): ViewModel() {
 
     private val _hotels = MutableLiveData<HotelDTO>()
     private val _error = MutableLiveData<String>()
@@ -24,11 +28,12 @@ class HotelViewModel(val repository: HotelRepository): ViewModel(){
     val error: MutableLiveData<String> get() = _error
 
     private var job: Job? = null
-    private var job2: Job? = null
 
     init {
         this.initGetHotelsCall()
     }
+
+    val allViewed: LiveData<List<HotelEntity>> = repository.allViewdHotels
 
     private fun initGetHotelsCall(){
         job = GlobalScope.launch {
@@ -41,7 +46,7 @@ class HotelViewModel(val repository: HotelRepository): ViewModel(){
     }
 
     fun getHotelDetail(id: String){
-        job2 = GlobalScope.launch {
+        job = GlobalScope.launch {
             val value = repository.getHotelDetail(id)
             when(value){
                 is Result.Success -> _hotelDetail.postValue(value.data)
@@ -50,10 +55,15 @@ class HotelViewModel(val repository: HotelRepository): ViewModel(){
         }
     }
 
+    fun insertViewedHotel(hotel: HotelEntity) {
+        job = GlobalScope.launch(Dispatchers.IO) {
+            repository.insertViewed(hotel)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         job?.cancel()
-        job2?.cancel()
     }
 
 
