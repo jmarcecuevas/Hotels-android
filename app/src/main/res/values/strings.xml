@@ -12,4 +12,7 @@
     <string name="ratingLabel">PUNTUACIÓN</string>
     <string name="reviewsLabel">OPINIONES</string>
     <string name="placeLabel">UBICACIÓN</string>
+    <string name="amenitiesLabel">COMODIDADES</string>
+    <string name="showMore">Ver más</string>
+    <string name="showLess">Ver menos</string>
 </resources>

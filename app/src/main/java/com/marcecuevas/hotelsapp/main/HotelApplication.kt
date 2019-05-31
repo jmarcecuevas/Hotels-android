@@ -31,6 +31,7 @@ class HotelApplication : Application(),KodeinAware {
 
     override fun onCreate() {
         super.onCreate()
+
         AndroidThreeTen.init(this)
 
         Font.instance.setFamilyName(applicationContext,"Gotham")

@@ -115,10 +115,14 @@ dependencies {
     implementation 'com.github.santalu:auto-viewpager:1.0.8'
 
     //Read more TextView
-    compile 'com.borjabravo:readmoretextview:2.1.0'
+    implementation 'com.github.mahimrocky:ShowMoreText:1.0.2'
 
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+
+    //Image Viewer
+    compile 'com.github.stfalcon:frescoimageviewer:0.5.0'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
