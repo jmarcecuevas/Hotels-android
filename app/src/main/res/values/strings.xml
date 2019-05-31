@@ -9,4 +9,7 @@
     <string name="hotelLabelHeader">TU HOTEL</string>
     <string name="seeLess">Ver menos</string>
     <string name="seeMore">Ver más</string>
+    <string name="ratingLabel">PUNTUACIÓN</string>
+    <string name="reviewsLabel">OPINIONES</string>
+    <string name="placeLabel">UBICACIÓN</string>
 </resources>

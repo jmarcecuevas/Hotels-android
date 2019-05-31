@@ -49,13 +49,14 @@ data class AdministrativeDivisionDTO(
 )
 
 data class ReviewDTO(
-    val comments: CommentDTO,
-    val user: UserDTO
+    val comments: CommentDTO?,
+    val user: UserDTO?
 )
 
 data class CommentDTO(
-    val good: String,
-    val type: String
+    val good: String?,
+    val bad: String?,
+    val type: String?
 )
 
 data class UserDTO(
