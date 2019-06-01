@@ -13,16 +13,9 @@ import com.marcecuevas.hotelsapp.utils.fontVariable
 import kotlinx.android.synthetic.main.fragment_hotel_detail.view.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 
-class CommentsAdapter(val context: Context?): RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
+class CommentsAdapter(context: Context?): GenericRecyclerAdapter<CommentsAdapter.CommentViewHolder,ReviewDTO>(context) {
 
-    var items: List<ReviewDTO>? = emptyList()
-
-    fun loadItems(newItems: List<ReviewDTO>?){
-        items = newItems
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
+    override fun getHolder(parent: ViewGroup): CommentViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_comment,parent,false)
         return CommentViewHolder(context, view)
     }
@@ -35,7 +28,7 @@ class CommentsAdapter(val context: Context?): RecyclerView.Adapter<CommentsAdapt
         holder.bind(items?.get(position))
     }
 
-    class CommentViewHolder(context: Context?,itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CommentViewHolder(context: Context?,itemView: View) : GenericViewHolder<ReviewDTO>(itemView) {
 
         init {
             itemView.fullNameTextView.fontVariable(context,FontVariable.bold)
@@ -44,8 +37,7 @@ class CommentsAdapter(val context: Context?): RecyclerView.Adapter<CommentsAdapt
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: ReviewDTO?){
-
+        override fun bind(item: ReviewDTO?){
             with(item){
                 this?.comments?.let {
                     itemView.fullNameTextView.text = user?.name

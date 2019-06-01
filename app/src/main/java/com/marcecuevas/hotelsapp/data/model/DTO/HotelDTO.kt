@@ -22,13 +22,13 @@ data class HotelItemDTO(
     val rating: Double?,
     val amenities: List<AmenityDTO>?,
     val price: PriceDTO?
-)
+): GenericDTO
 
 
 data class AmenityDTO(
     val id: String?,
     val description: String?
-)
+): GenericDTO
 
 data class PriceDTO(
     val currency: CurrencyDTO?,

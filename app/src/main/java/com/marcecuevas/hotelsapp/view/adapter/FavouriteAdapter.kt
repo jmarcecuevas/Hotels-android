@@ -15,32 +15,22 @@ import com.marcecuevas.hotelsapp.utils.light
 import kotlinx.android.synthetic.main.item_favorite.view.*
 
 
-class FavouriteAdapter(val context: Context?, val onClick: (HotelEntity?) -> Unit): RecyclerView.Adapter<FavouriteAdapter.FavouriteViewHolder>() {
+class FavouriteAdapter(context: Context?, val onClick: (HotelEntity?) -> Unit):
+    GenericRecyclerAdapter<FavouriteAdapter.FavouriteViewHolder, HotelEntity>(context) {
 
-    var items: List<HotelEntity>? = emptyList()
-
-    fun loadItems(newItems: List<HotelEntity>?){
-        items = newItems
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
+    override fun getHolder(parent: ViewGroup): FavouriteViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_favorite,parent,false)
         return FavouriteViewHolder(context, view)
     }
 
-    override fun getItemCount(): Int {
-        return items?.count() ?: 0
-    }
-
     override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
-        holder.bind(items?.get(position))
+        super.onBindViewHolder(holder, position)
         holder.itemView.setOnClickListener{
             onClick(items?.get(position))
         }
     }
 
-    class FavouriteViewHolder(context: Context?, itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class FavouriteViewHolder(context: Context?, itemView: View) : GenericViewHolder<HotelEntity>(itemView) {
 
         init {
             itemView.nameTextView.bold(context)
@@ -49,7 +39,7 @@ class FavouriteAdapter(val context: Context?, val onClick: (HotelEntity?) -> Uni
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: HotelEntity?){
+        override fun bind(item: HotelEntity?) {
             Glide.with(itemView).load(item?.imageURL).into(itemView.imageView)
 
             itemView.nameTextView.text = item?.name

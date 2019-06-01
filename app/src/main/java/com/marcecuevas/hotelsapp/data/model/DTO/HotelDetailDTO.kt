@@ -51,7 +51,7 @@ data class AdministrativeDivisionDTO(
 data class ReviewDTO(
     val comments: CommentDTO?,
     val user: UserDTO?
-)
+): GenericDTO
 
 data class CommentDTO(
     val good: String?,

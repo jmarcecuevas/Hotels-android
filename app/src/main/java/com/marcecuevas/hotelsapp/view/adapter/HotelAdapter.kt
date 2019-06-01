@@ -5,58 +5,41 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.marcecuevas.hotelsapp.R
-import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
+import com.marcecuevas.hotelsapp.data.model.DTO.AmenityDTO
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelItemDTO
-import com.marcecuevas.hotelsapp.utils.FontVariable
 import com.marcecuevas.hotelsapp.utils.bold
-import com.marcecuevas.hotelsapp.utils.fontVariable
 import kotlinx.android.synthetic.main.item_hotel.view.*
-import java.lang.StringBuilder
 
-class HotelAdapter(val context: Context?, val onClick: (HotelItemDTO?) -> Unit): RecyclerView.Adapter<HotelAdapter.HotelViewHolder>() {
 
-    var items: List<HotelItemDTO>? = emptyList()
+class HotelAdapter(context: Context?, val onClick: (HotelItemDTO?) -> Unit) : GenericRecyclerAdapter<HotelAdapter.ViewHolder, HotelItemDTO>(context) {
 
-    fun loadItems(newItems: List<HotelItemDTO>?){
-        items = newItems
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotelViewHolder {
+    override fun getHolder(parent: ViewGroup): ViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_hotel,parent,false)
-        return HotelViewHolder(context,view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: HotelViewHolder, position: Int) {
-        holder.bind(items?.get(position))
-        holder.itemView.setOnClickListener{
+    override fun onBindViewHolder(holder: HotelAdapter.ViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        holder.itemView.setOnClickListener(){
             onClick(items?.get(position))
         }
     }
 
-    override fun getItemCount(): Int {
-        return items?.size ?:0
-    }
-
-    class HotelViewHolder(context: Context?, itemView: View): RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View): GenericRecyclerAdapter.GenericViewHolder<HotelItemDTO>(itemView) {
 
         init {
             with(itemView){
                 nameTextView.bold(context)
                 nameTextView.textSize = 16f
-
                 addressTextView.textSize = 14f
-
                 ratingTextView.textSize = 14f
             }
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(hotel: HotelItemDTO?){
-            with(hotel){
+        override fun bind(item: HotelItemDTO?) {
+            with(item){
                 this?.stars?.let {
                     itemView.starsRatinBar.rating = it.toFloat()
                 }
@@ -66,20 +49,27 @@ class HotelAdapter(val context: Context?, val onClick: (HotelItemDTO?) -> Unit):
                 itemView.ratingTextView.text = this?.rating.toString()
                 itemView.priceTextView.text = "${this?.price?.currency?.mask} ${this?.price?.best}"
 
-                Glide.with(itemView)
-                    .load(this?.mainPicture)
-                    .placeholder(R.drawable.empty_state)
-                    .error(R.drawable.empty_state)
-                    .into(itemView.imageView)
-
-                val amenitiesString = StringBuilder()
-                this?.amenities?.let {
-                    for(amenity in it){
-                        amenitiesString.append("* ${amenity.description}\n")
-                    }
-                }
-                itemView.amenitiesTextView.text = amenitiesString.toString()
+                loadImage(itemView,this?.mainPicture)
+                setupAmenities(this?.amenities)
             }
+        }
+
+        private fun setupAmenities(amenities: List<AmenityDTO>?){
+            val amenitiesString = java.lang.StringBuilder()
+            amenities?.let {
+                for(amenity in it){
+                    amenitiesString.append("* ${amenity.description}\n")
+                }
+            }
+            itemView.amenitiesTextView.text = amenitiesString.toString()
+        }
+
+        private fun loadImage(itemView:View, mainPicture: String?){
+            com.bumptech.glide.Glide.with(itemView)
+                .load(mainPicture)
+                .placeholder(com.marcecuevas.hotelsapp.R.drawable.empty_state)
+                .error(com.marcecuevas.hotelsapp.R.drawable.empty_state)
+                .into(itemView.imageView)
         }
     }
 }

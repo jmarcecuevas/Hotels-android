@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.data.model.DTO.*
+import com.marcecuevas.hotelsapp.data.model.Error
 import com.marcecuevas.hotelsapp.data.model.entity.HotelEntity
 import com.marcecuevas.hotelsapp.utils.*
 import com.marcecuevas.hotelsapp.view.adapter.AmenitiesAdapter
@@ -26,22 +27,24 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
-class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
+class HotelDetailFragment: GenericMapFragment() {
+
+    override val map: MapView
+        get() = fragmentMap
 
     private val viewModelFactory: HotelViewModelFactory by instance()
     private lateinit var viewModel: HotelViewModel
     var hotelID: String? = null
 
     val adapter = CommentsAdapter(context)
-    val aminitiesAdapter = AmenitiesAdapter()
-    private var googleMap: GoogleMap? = null
+    val aminitiesAdapter = AmenitiesAdapter(context)
 
     override fun layout(): Int = R.layout.fragment_hotel_detail
 
     override fun init() {
+        super.init()
         showProgress()
 
-        startMap()
         getArgs()
         styleViews()
 
@@ -60,6 +63,10 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
                 setupView(it)
             }
         })
+
+        viewModel.errorLiveData.observe(this, Observer {
+            showError(com.marcecuevas.hotelsapp.data.model.Error(getString(R.string.error),it))
+        })
     }
 
     private fun styleViews(){
@@ -69,12 +76,6 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
         amenitiesLabel.bold(context)
         placeLabel.bold(context)
         priceBtn.bold(context)
-    }
-
-    private fun startMap(){
-        fragmentMap.onCreate(null)
-        fragmentMap.onResume()
-        fragmentMap.getMapAsync(this)
     }
 
     private fun setupView(hotel: HotelDetailDTO) {
@@ -156,16 +157,8 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
     }
 
     private fun setupMap(location: GeolocationDTO?){
-        val lat = location?.latitude?.toDouble()
-        val lng = location?.longitude?.toDouble()
-
-        ifLet(lat,lng){
-            (lat,lng) ->
-                googleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
-                googleMap?.addMarker(MarkerOptions().position(LatLng(lat,lng)))
-                val cameraposition = CameraPosition.builder().target(LatLng(lat,lng)).zoom(12f).bearing(0f).build()
-                googleMap?.moveCamera(CameraUpdateFactory.newCameraPosition(cameraposition))
-        }
+        drawMarker(location?.latitude,location?.longitude)
+        moveCamera(location?.latitude,location?.longitude)
     }
 
     private fun setupRating(rating: Double?){
@@ -185,11 +178,6 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
     fun getArgs(){
         hotelID = arguments?.let {
             HotelDetailFragmentArgs.fromBundle(it).hotelId }
-    }
-
-    override fun onMapReady(map: GoogleMap?) {
-        this.googleMap = map
-        MapsInitializer.initialize(context)
     }
 
     private fun navigateToImageViewer(url: String?){
