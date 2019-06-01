@@ -22,11 +22,9 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class HotelsFragment: GenericFragment(), KodeinAware {
+class HotelsFragment: GenericFragment() {
 
-    override val kodein by closestKodein()
     private val viewModelFactory: HotelViewModelFactory by instance()
-
     private lateinit var viewModel: HotelViewModel
     private lateinit var adapter: HotelAdapter
 
@@ -42,7 +40,6 @@ class HotelsFragment: GenericFragment(), KodeinAware {
 
         context?.let {
             adapter = HotelAdapter(it,{
-                saveHotelAsViewed(it)
                 navigateToEventDetails(it?.id)
             })
             hotelsRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -56,17 +53,6 @@ class HotelsFragment: GenericFragment(), KodeinAware {
             this.hotels = it
             adapter.loadItems(it.items)
         })
-    }
-
-    private fun saveHotelAsViewed(item: HotelItemDTO?) {
-        with(item){
-            this?.id?.let {
-                val hotelEntity = HotelEntity(it, name,
-                    address,stars,
-                    price?.currency?.mask,price?.best,mainPicture)
-                viewModel.insertViewedHotel(hotelEntity)
-            }
-        }
     }
 
     private fun setupTextViews(){

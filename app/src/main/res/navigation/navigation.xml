@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/navigation" app:startDestination="@id/homeFragment">
 
     <fragment android:id="@+id/homeFragment" android:name="com.marcecuevas.hotelsapp.view.fragment.HotelsFragment"
@@ -31,5 +31,5 @@
     </fragment>
     <fragment android:id="@+id/mapFragment"
               android:name="com.marcecuevas.hotelsapp.view.fragment.MapHotelsFragment"
-              android:label="Mapa de hoteles"/>
+              android:label="Mapa de hoteles vistos"/>
 </navigation>

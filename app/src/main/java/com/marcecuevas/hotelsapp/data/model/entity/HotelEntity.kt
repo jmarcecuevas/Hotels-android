@@ -11,4 +11,6 @@ class HotelEntity(@PrimaryKey @ColumnInfo(name = "id") val id: String,
                   @ColumnInfo(name = "stars") val stars: Int?,
                   @ColumnInfo(name="currency_mask") val currencyMask:String?,
                   @ColumnInfo(name="price") val price: Int?,
-                  @ColumnInfo(name="imageURL") val imageURL: String?)
+                  @ColumnInfo(name="imageURL") val imageURL: String?,
+                  @ColumnInfo(name="lat") val lat: String?,
+                  @ColumnInfo(name="lng") val lng: String?)

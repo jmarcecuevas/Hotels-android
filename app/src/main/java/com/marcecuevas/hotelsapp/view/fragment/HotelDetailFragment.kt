@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.data.model.DTO.*
+import com.marcecuevas.hotelsapp.data.model.entity.HotelEntity
 import com.marcecuevas.hotelsapp.utils.*
 import com.marcecuevas.hotelsapp.view.adapter.AmenitiesAdapter
 import com.marcecuevas.hotelsapp.view.adapter.CommentsAdapter
@@ -28,6 +29,7 @@ import org.kodein.di.generic.instance
 class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
 
     private val viewModelFactory: HotelViewModelFactory by instance()
+    private lateinit var viewModel: HotelViewModel
     var hotelID: String? = null
 
     val adapter = CommentsAdapter(context)
@@ -47,13 +49,14 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
     }
 
     private fun startObserving(){
-        val viewModel = ViewModelProviders.of(this,viewModelFactory).
+        viewModel = ViewModelProviders.of(this,viewModelFactory).
             get(HotelViewModel::class.java)
 
         hotelID?.let { viewModel.getHotelDetail(it) }
 
         viewModel.hotelDetail.observe(this, Observer {
             it?.let {
+                saveHotelAsViewed(it)
                 setupView(it)
             }
         })
@@ -192,5 +195,18 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
     private fun navigateToImageViewer(url: String?){
         val directions = HotelDetailFragmentDirections.imageViewerFragment(url)
         findNavController().navigate(directions)
+    }
+
+    private fun saveHotelAsViewed(item: HotelDetailDTO?) {
+        with(item){
+            this?.id?.let {
+                val hotelEntity = HotelEntity(it, hotel?.name,
+                    hotel?.address,hotel?.stars,
+                    price?.currency?.mask,price?.best,hotel?.mainPicture,
+                    hotel?.geoLocation?.latitude,hotel?.geoLocation?.longitude)
+
+                viewModel.insertViewedHotel(hotelEntity)
+            }
+        }
     }
 }
