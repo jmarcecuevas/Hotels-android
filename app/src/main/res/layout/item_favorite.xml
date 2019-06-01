@@ -4,7 +4,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp">
+        android:paddingBottom="@dimen/largeDimen">
 
         <ImageView
                 android:layout_width="0dp"
@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="@dimen/mediumDimen"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -30,7 +30,7 @@
             <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/mediumDimen"
                     android:id="@+id/textContainer"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -64,8 +64,8 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_margin="8dp"
+                    android:padding="@dimen/mediumDimen"
+                    android:layout_margin="@dimen/mediumDimen"
                     android:textSize="16sp"
                     android:background="@drawable/rectangle_shape_white"
                     android:id="@+id/priceTextView"

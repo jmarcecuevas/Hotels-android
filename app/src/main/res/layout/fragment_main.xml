@@ -8,7 +8,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/appBar"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 android:fitsSystemWindows="true">
 
@@ -34,13 +34,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|bottom"
-                            android:layout_marginBottom="16dp"/>
+                            android:layout_marginBottom="@dimen/largeDimen"/>
 
                     <LinearLayout
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:layout_gravity="top"
-                                  android:layout_marginTop="32dp"
+                                  android:layout_marginTop="@dimen/xLargeDimen"
                                   android:layout_marginStart="24dp"
                                   android:orientation="vertical">
 
@@ -64,7 +64,7 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingStart="32dp"
+                                android:paddingStart="@dimen/xLargeDimen"
                                 android:id="@+id/thirdHeaderTV"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="36sp"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/hotelsRecyclerView"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:padding="8dp">
+                android:padding="@dimen/mediumDimen">
         </androidx.recyclerview.widget.RecyclerView>
 
 

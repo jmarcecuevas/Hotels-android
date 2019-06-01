@@ -19,7 +19,7 @@
         android:textStyle="italic"
         android:padding="8dp"
         android:id="@+id/goodComentTextView"
-        android:drawablePadding="8dp"
+        android:drawablePadding="@dimen/mediumDimen"
         android:drawableStart="@drawable/ic_happy"/>
 
     <TextView
@@ -28,9 +28,9 @@
             android:textSize="12sp"
             android:textColor="@color/colorAltPrimary"
             android:textStyle="italic"
-            android:padding="8dp"
+            android:padding="@dimen/mediumDimen"
             android:id="@+id/badComentTextView"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/mediumDimen"
             android:drawableStart="@drawable/ic_sad"/>
 
     <View
@@ -39,8 +39,8 @@
             android:background="@color/colorSecondary"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginTop="@dimen/mediumDimen"
+            android:layout_marginBottom="@dimen/mediumDimen">
 
     </View>
 

@@ -5,7 +5,7 @@
         android:layout_height="wrap_content"
         xmlns:card_view="http://schemas.android.com/tools"
         android:background="@android:color/white"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/mediumDimen"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
             app:cardUseCompatPadding="true"
-            app:cardElevation="4dp"
+            app:cardElevation="@dimen/cardElevation"
             app:cardBackgroundColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -43,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/oval_rectangle_filled_shape"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/mediumDimen"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:alpha="0.9"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/mainContainer"
-                    android:padding="8dp"
+                    android:padding="@dimen/mediumDimen"
                     app:layout_constraintTop_toBottomOf="@id/imageContainer"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent">
@@ -97,7 +97,7 @@
             <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:padding="@dimen/mediumDimen"
                     android:id="@+id/amenitiesContainer"
                     app:layout_constraintTop_toBottomOf="@+id/mainContainer"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -115,8 +115,8 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_margin="8dp"
+                    android:padding="@dimen/mediumDimen"
+                    android:layout_margin="@dimen/mediumDimen"
                     android:textSize="18sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/amenitiesContainer"

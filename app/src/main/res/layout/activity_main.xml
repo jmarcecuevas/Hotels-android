@@ -27,7 +27,7 @@
     <View
             android:id="@+id/shadowToolbar"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="@dimen/smallDimen"
             android:layout_gravity="bottom"
             android:background="@drawable/shadow_gradient" />
 
