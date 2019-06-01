@@ -27,7 +27,6 @@ class HotelApplication : Application(),KodeinAware {
 
         bind() from singleton { HotelRoomDatabase(instance()) }
         bind() from singleton { instance<HotelRoomDatabase>().hotelDAO() }
-
         bind() from singleton { HotelREST(instance()) }
         bind<HotelNetworkDataSource>() with singleton { HotelNetworkDataSourceImpl(instance()) }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance())}

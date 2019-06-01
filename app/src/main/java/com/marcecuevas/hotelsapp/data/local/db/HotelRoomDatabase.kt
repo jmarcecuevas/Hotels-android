@@ -25,5 +25,4 @@ abstract class HotelRoomDatabase: RoomDatabase() {
                     HotelRoomDatabase::class.java, "hotels.db")
                     .build()
         }
-
     }

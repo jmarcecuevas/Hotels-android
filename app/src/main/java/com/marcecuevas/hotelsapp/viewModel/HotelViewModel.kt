@@ -18,14 +18,14 @@ import kotlinx.coroutines.Dispatchers
 
 class HotelViewModel(val repository: HotelRepository): ViewModel() {
 
-    private val _hotels = MutableLiveData<HotelDTO>()
-    private val _error = MutableLiveData<String>()
+    private val hotels = MutableLiveData<HotelDTO>()
+    private val error = MutableLiveData<String>()
 
-    private val _hotelDetail = MutableLiveData<HotelDetailDTO>()
+    private val hotelDetail = MutableLiveData<HotelDetailDTO>()
 
-    val hotels: LiveData<HotelDTO> get() = _hotels
-    val hotelDetail: LiveData<HotelDetailDTO> get() = _hotelDetail
-    val error: MutableLiveData<String> get() = _error
+    val hotelsLivedata: LiveData<HotelDTO> get() = hotels
+    val hotelDetailLiveData: LiveData<HotelDetailDTO> get() = hotelDetail
+    val errorLiveData: MutableLiveData<String> get() = error
 
     private var job: Job? = null
 
@@ -39,8 +39,8 @@ class HotelViewModel(val repository: HotelRepository): ViewModel() {
         job = GlobalScope.launch {
             val value = repository.getHotels()
             when(value){
-                is Result.Success -> _hotels.postValue(value.data)
-                is Result.Error -> _error.postValue(value.message.message)
+                is Result.Success -> hotels.postValue(value.data)
+                is Result.Error -> error.postValue(value.message.message)
             }
         }
     }
@@ -49,8 +49,8 @@ class HotelViewModel(val repository: HotelRepository): ViewModel() {
         job = GlobalScope.launch {
             val value = repository.getHotelDetail(id)
             when(value){
-                is Result.Success -> _hotelDetail.postValue(value.data)
-                is Result.Error -> _error.postValue(value.message.message)
+                is Result.Success -> hotelDetail.postValue(value.data)
+                is Result.Error -> error.postValue(value.message.message)
             }
         }
     }
@@ -65,6 +65,8 @@ class HotelViewModel(val repository: HotelRepository): ViewModel() {
         super.onCleared()
         job?.cancel()
     }
+
+
 
 
 }

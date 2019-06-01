@@ -54,7 +54,7 @@ class HotelDetailFragment: GenericFragment(), OnMapReadyCallback{
 
         hotelID?.let { viewModel.getHotelDetail(it) }
 
-        viewModel.hotelDetail.observe(this, Observer {
+        viewModel.hotelDetailLiveData.observe(this, Observer {
             it?.let {
                 saveHotelAsViewed(it)
                 setupView(it)

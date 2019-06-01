@@ -49,7 +49,7 @@ class HotelsFragment: GenericFragment() {
         viewModel = ViewModelProviders.of(this,viewModelFactory).
             get(HotelViewModel::class.java)
 
-        viewModel.hotels.observe(this, Observer {
+        viewModel.hotelsLivedata.observe(this, Observer {
             this.hotels = it
             adapter.loadItems(it.items)
         })
