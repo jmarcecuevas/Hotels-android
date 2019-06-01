@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.marcecuevas.hotelsapp.R
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelDTO
 import com.marcecuevas.hotelsapp.data.model.DTO.HotelItemDTO
+import com.marcecuevas.hotelsapp.data.model.Error
 import com.marcecuevas.hotelsapp.data.model.entity.HotelEntity
 import com.marcecuevas.hotelsapp.utils.FontVariable
 import com.marcecuevas.hotelsapp.utils.bold
@@ -52,6 +53,10 @@ class HotelsFragment: GenericFragment() {
         viewModel.hotelsLivedata.observe(this, Observer {
             this.hotels = it
             adapter.loadItems(it.items)
+        })
+
+        viewModel.errorLiveData.observe(this, Observer {
+            showError(com.marcecuevas.hotelsapp.data.model.Error(getString(R.string.error),it))
         })
     }
 

@@ -17,4 +17,5 @@
     <string name="showMore">Ver más</string>
     <string name="showLess">Ver menos</string>
     <string name="map">Mapa</string>
+    <string name="error">Error</string>
 </resources>

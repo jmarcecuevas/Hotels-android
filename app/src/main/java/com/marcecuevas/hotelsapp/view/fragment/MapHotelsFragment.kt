@@ -40,8 +40,12 @@ class MapHotelsFragment: GenericMapFragment() {
                 drawMarker(item.lat,item.lng)
             }
         }
-        with(items?.last()){
-            moveCamera(this?.lat, this?.lng)
+        items?.let {
+            if(!items.isEmpty()){
+                with(items.last()){
+                    moveCamera(lat, lng)
+                }
+            }
         }
     }
 }
