@@ -1,6 +1,7 @@
 package com.marcecuevas.hotelsapp.main
 
 import android.app.Application
+import androidx.multidex.MultiDexApplication
 import androidx.room.RoomDatabase
 import com.marcecuevas.hotelsapp.data.repository.HotelRepository
 import com.marcecuevas.hotelsapp.data.repository.HotelRepositoryImpl
@@ -18,9 +19,8 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
-import uk.co.chrisjenx.calligraphy.CalligraphyUtils
 
-class HotelApplication : Application(),KodeinAware {
+class HotelApplication : MultiDexApplication(),KodeinAware {
 
     override val kodein = Kodein.lazy {
         import(androidXModule(this@HotelApplication))
