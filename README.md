@@ -36,5 +36,4 @@ Esta aplicación fue desarrollada 100% en Kotlin aplicando muchos de los patrone
 - Singleton pattern
 - Material Design
 - Anko
-- LifeCycle
 
