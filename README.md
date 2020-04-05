@@ -1,4 +1,4 @@
-# HotelsApp
+# Hotels-android
 
 Es una aplicación en la que podrás visualizar un listado de hoteles junto a su nombre, precio, descuento, precio de lista, etc.
 Además contarás con una sección de detalle con los datos anteriormente nombrados pero también una galería de imágenes y otros detalles.
